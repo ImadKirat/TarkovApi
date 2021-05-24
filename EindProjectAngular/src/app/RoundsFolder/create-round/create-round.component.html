@@ -1,0 +1,17 @@
+<h2>Enter a bullet</h2>
+<input #name type="text" id="name">
+<input #damage type="text" id="damage">
+<input #penpower type="text" id="penpower">
+<input #armorDamage type="text" id="armorDamage">
+<input #accuracy type="text" id="accuracy">
+<input #fragChance type="text" id="fragChance">
+<button (click)="GetinputData(name.value, damage.value,penpower.value
+,armorDamage.value,accuracy.value,fragChance.value,selectedCaliber)">send</button>
+
+<!--ngfor met caliber-->
+    <select (change)="SelectToUpdate($event)">
+    <option value="Empty">Select caliber</option>
+    <option *ngFor="let caliber of caliberList; let i = index" value={{i}}>
+        {{caliber.name}}
+    </option>
+</select>

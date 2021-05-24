@@ -1,0 +1,7 @@
+<h2>Delete a bullet</h2>
+
+<input #inputId type="text" id="id">
+<button (click)="GetinputData(inputId.value)">Delete</button>
+<tr  *ngIf="singleRound != null">
+    <td>{{singleRound.id}}</td>
+</tr>

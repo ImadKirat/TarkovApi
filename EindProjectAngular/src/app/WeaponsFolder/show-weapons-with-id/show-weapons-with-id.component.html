@@ -1,0 +1,40 @@
+<select class="form-select" aria-label="Default select example" (change)="SelectToUpdate($event)">
+    <option value="Empty">Select Weapon</option>
+    <option #caliber *ngFor="let weapon of weaponList; let i = index" value={{i}}>
+      {{weapon.name}}
+    </option>
+  </select>
+  <table class="table" *ngIf="itemsForWeapon.length > 0">
+    <thead>
+        <th>{{weapon.name}} current attachements</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let object of itemsForWeapon">
+            <td>
+                {{object.attachements.name}}
+            </td>
+            <td>
+                <button class="button is-danger" (click)="RemoveAttachementFromWeapon(object.attachements.id)">Remove</button>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<table class="table" *ngIf="attachement.length > 0">
+    <thead>
+        <th>All other attachements</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of attachement">
+            <td>
+                {{item.name}}
+            </td>
+            <td>
+                <button class="button is-primary" (click)="AddItemToPlayer(item.id)">Add</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

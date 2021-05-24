@@ -1,0 +1,107 @@
+<div class="container">
+    <br>
+    <form>
+        <div class="form-group">
+            <input type="search" class="form-control" #searchQ aria-describedby="searchQ"
+                placeholder="You can search here for weapons by their name">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="Searchparam(searchQ.value)">Search</button>
+
+        <div class="form-group">
+            <label>Or you can search a round by ID</label>
+            <br>
+            <select class="form-select" aria-label="Default select example" (change)="SelectToUpdateId($event)">
+                <option value="Empty">Select an Id</option>
+                <option *ngFor="let round of roundList; let i = index" value={{i}}>
+                    {{round.id}}
+                </option>
+            </select>
+            <ng-container *ngIf="selectedRound && alertFlag">
+                <div class="container">
+                    <div class="alert alert-success alert-dismissible">
+                        <button (click) = "CloseAlert()"class="btn btn-success" type="button">&times;</button>
+                        <strong>  {{selectedRound.name}}</strong> This is the name of the round you requested.
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>
+<br>
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name  <button type="button" (click)="Sort()" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Sort</button></th>
+                <th scope="col">Damage</th>
+                <th scope="col">Penpower</th>
+                <th scope="col">Armordamage</th>
+                <th scope="col">Accuracy</th>
+                <th scope="col">Fragchance</th>
+                <th scope="col">Caliber</th>
+            </tr>
+            <ng-container *ngIf="editFlag == false">
+                <tr *ngFor="let round of roundList">
+
+                    <td>{{round.name}}</td>
+                    <td>{{round.damage}}</td>
+                    <td>{{round.penPower}}</td>
+                    <td>{{round.armorDamage}}</td>
+                    <td>{{round.accuracy}}</td>
+                    <td>{{round.fragChance}}</td>
+                    <td>{{round.caliber.name}}</td>
+                    <td>
+                        <div class="button-box col-lg-12">
+                    <td><button type="button" class="btn btn-primary" (click)="GetItem(round.id)">Edit</button></td>
+                    <td><button class="btn btn-danger" (click)="RemoveRound(round.id)">Delete</button></td>
+</div>
+</td>
+</tr>
+<br>
+</ng-container>
+<ng-container *ngIf="editFlag == true">
+    <tr *ngFor="let round of roundList">
+        <td><input #name type="text" value={{round.name}}></td>
+        <td><input #damage type="text" value={{round.damage}}></td>
+        <td><input #penpower type="text" value={{round.penPower}}></td>
+        <td> <input #armorDamage type="text" value={{round.armorDamage}}></td>
+        <td> <input #accuracy type="text" value={{round.accuracy}}></td>
+        <td> <input #fragChance type="text" value={{round.fragChance}}></td>
+        <td><select class="form-select" aria-label="Default select example" (change)="SelectToUpdate($event)">
+                <option value="Empty">Select caliber</option>
+                <option *ngFor="let caliber of caliberList; let i = index" value={{i}}>
+                    {{caliber.name}}
+                </option>
+            </select>
+        </td>
+        <div class="button-box col-lg-12">
+            <td> <button class="btn btn-danger" (click)="GetinputData(round.id,name.value, damage.value,penpower.value
+        ,armorDamage.value,accuracy.value,fragChance.value,selectedCaliber)">Submit</button></td>
+            <td> <button class="btn btn-secondary" (click)="Cancel()">Cancel</button></td>
+        </div>
+    </tr>
+
+</ng-container>
+
+<tr>
+    <td><input [(ngModel)]="singleRoundName.name" type="text"></td>
+    <td><input [(ngModel)]="singleRoundName.damage" type="text"></td>
+    <td><input [(ngModel)]="singleRoundName.penPower" type="text"></td>
+    <td> <input [(ngModel)]="singleRoundName.armorDamage" type="text"></td>
+    <td> <input [(ngModel)]="singleRoundName.accuracy" type="text"></td>
+    <td> <input [(ngModel)]="singleRoundName.fragChance" type="text"></td>
+    <td><select (change)="SelectToUpdate($event)">
+            <option value="Empty">Select caliber</option>
+            <option *ngFor="let caliber of caliberList; let i = index" value={{i}}>
+                {{caliber.name}}
+            </option>
+        </select>
+    </td>
+    <td> <button class="btn btn-warning"
+            (click)="GetRound(singleRoundName.id,singleRoundName.name, singleRoundName.damage,singleRoundName.penPower
+                ,singleRoundName.armorDamage,singleRoundName.accuracy,singleRoundName.fragChance,selectedCaliber)">Add</button></td>
+
+</tr>
+</thead>
+</table>
+</div>

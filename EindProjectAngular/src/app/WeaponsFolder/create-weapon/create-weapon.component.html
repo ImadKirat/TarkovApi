@@ -1,0 +1,26 @@
+<h2>Enter a bullet</h2>
+<input #name type="text" id="name">
+<input #recoil type="text" id="recoil">
+<button (click)="GetinputData(name.value, recoil.value
+,selectedPlatform.id,selectedCaliber.id,selectedWeaponAttachement)">send</button>
+
+
+<select (change)="SelectToUpdatePlatform($event)">
+    <option value="Empty">Select Platform</option>
+    <option *ngFor="let platform of platformList; let i = index" value={{i}}>
+        {{platform.name}}
+    </option>
+</select>
+<!--ngfor met caliber-->
+    <select (change)="SelectToUpdateCaliber($event)">
+    <option value="Empty">Select caliber</option>
+    <option *ngFor="let caliber of caliberList; let i = index" value={{i}}>
+        {{caliber.name}}
+    </option>
+</select>
+
+<select (change)="SelectToUpdateAttachement($event)">
+    <option value="Empty">Select Attachement</option>
+    <option *ngFor="let attachement of attachementList; let i = index" value={{i}}>
+        {{attachement.name}}
+    </option>

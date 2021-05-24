@@ -1,0 +1,12 @@
+<input #inputId type="text" id="id">
+<button (click)="GetinputData(inputId.value)">Search</button>
+<tr  *ngIf="singleRound != null">
+    <td>{{singleRound.id}}</td>
+    <td>{{singleRound.name}}</td>
+    <td>{{singleRound.damage}}</td>
+    <td>{{singleRound.penpower}}</td>
+    <td>{{singleRound.armorDamage}}</td>
+    <td>{{singleRound.accuracy}}</td>
+    <td>{{singleRound.fragChance}}</td>
+    <td>{{singleRound.caliber.name}}</td>
+</tr>

@@ -1,0 +1,25 @@
+<div class="container">
+    <select class="form-select" aria-label="Default select example" (change)="SelectToUpdate($event)">
+        <option value="Empty">Select Platform</option>
+        <option *ngFor="let platform of platformList; let i = index" value={{i}}>
+            {{platform.name}}
+        </option>
+    </select>
+        </div>     
+        <div class="container">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Recoil</th>
+                    <th scope="col">Platform</th>
+                    <th scope="col">Caliber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let weapon of weaponList">
+                        <td>{{weapon.name}}</td>
+                        <td>{{weapon.recoil}}</td>
+                        <td>{{weapon.platform.name}}</td>
+                        <td>{{weapon.caliber.name}}</td>
+                        </tr>

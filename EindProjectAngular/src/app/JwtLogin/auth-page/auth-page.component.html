@@ -1,0 +1,42 @@
+<div class="container">
+<ng-container *ngIf="!registerFlag">
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Email address</label>
+            <input type="email" #email class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <input type="password" #password class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+        <br>
+        <button (click)="Login(email.value, password.value)" class="btn btn-primary">Login</button>
+        <button (click)="ClickRegister()" class="btn btn-primary">Register</button>
+      </form>
+
+  </ng-container>
+  <ng-container *ngIf="registerFlag">
+    <form>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" #username id="username" placeholder="username">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" #email id="email" placeholder="name@example.com">
+          </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+
+            <input type="password" class="form-control" #password id="inputPassword" placeholder="Password">
+        </div>
+        <br>
+        <button type="submit" (click)="Register(username.value, email.value, password.value)" class="btn btn-primary">Register</button>
+      </form>
+
+  </ng-container>
+  
+  <button type="button" (click)="authService.GoogleAuth()">
+    Log in with Google
+  </button>
+</div>
