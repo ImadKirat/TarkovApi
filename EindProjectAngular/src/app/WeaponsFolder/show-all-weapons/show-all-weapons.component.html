@@ -10,42 +10,47 @@
         <th scope="col">Platform</th>
         <th scope="col">Attachement</th>
       </tr>
-    <ng-containter *ngIf="editFlag == false">      
-      <div *ngFor="let url of linkArray"style="margin:0%" class="text-centers">
-        <td><img src="{{url}}" alt="weaponImage" width="120" height="70"></td> 
-      </div>
-    <tr *ngFor="let weapon of weaponListFromApi">
-        <td>{{weapon.name}}</td>
-        <td>{{weapon.recoil}}</td>
-        <td>{{weapon.caliber.name}}</td>
-        <td>{{weapon.platform.name}}</td>
-        <td>{{weapon.weaponAttachements[0].attachements.name}}</td>
-        <td><button type="button" class="btn btn-primary" (click)="EditWeapon(weapon.id)">Edit</button></td>
-    </tr>
+      <ng-containter *ngIf="editFlag == false">
+        <tr *ngFor="let weapon of weaponListFromApi; let i = index">
+          <!-- <td style="margin:0%" class="text-centers">
+            <div *ngFor="let url of linkArray;let j = index">
+              <img ngIf="i == j" src="{{url}}" alt="weaponImage" width="120" height="70">
+            </div>
+          </td> -->
+          <td><img *ngIf="linkArray.length > 0"   src="{{linkArray[i]}}" alt="weaponImage" width="120" height="70"></td>
+          <td>{{weapon.name}}</td>
+          <td>{{weapon.recoil}}</td>
+          <td>{{weapon.caliber.name}}</td>
+          <td>{{weapon.platform.name}}</td>
+          <td>{{weapon.weaponAttachements[0].attachements.name}}</td>
+          <td><button type="button" class="btn btn-primary" (click)="EditWeapon(weapon.id)">Edit</button></td>
+        </tr>
       </ng-containter>
       <ng-container *ngIf="editFlag == true">
         <tr *ngFor="let weapon of weaponListFromApi">
-        <td><input #name type="text" value="{{weapon.name}}"></td>
-        <td><input #recoil type="text" value="{{weapon.recoil}}"></td>
-        <td><select class="form-select" aria-label="Default select example" (change)="SelectToUpdateCaliber($event)">
-            <option value="Empty">Select caliber</option>
-            <option #caliber *ngFor="let caliber of caliberListFromApi; let i = index" value={{i}}>
-              {{caliber.name}}
-            </option>
-          </select>
-        </td>
-        <td><select class="form-select" aria-label="Default select example" (change)="SelectToUpdatePlatform($event)">
-            <option value="Empty">Select platform</option>
-            <option #platform *ngFor="let platform of platformListFromApi; let i = index" value={{i}}>
-              {{platform.name}}
-            </option>
-          </select>
-          <td><button type="button" class="btn btn-light" (click)="ChangeView('attachements')">Manage attachements</button></td>
+          <td><input #name type="text" value="{{weapon.name}}"></td>
+          <td><input #recoil type="text" value="{{weapon.recoil}}"></td>
+          <td><select class="form-select" aria-label="Default select example" (change)="SelectToUpdateCaliber($event)">
+              <option value="Empty">Select caliber</option>
+              <option #caliber *ngFor="let caliber of caliberListFromApi; let i = index" value={{i}}>
+                {{caliber.name}}
+              </option>
+            </select>
+          </td>
+          <td><select class="form-select" aria-label="Default select example" (change)="SelectToUpdatePlatform($event)">
+              <option value="Empty">Select platform</option>
+              <option #platform *ngFor="let platform of platformListFromApi; let i = index" value={{i}}>
+                {{platform.name}}
+              </option>
+            </select>
+          <td><button type="button" class="btn btn-light" (click)="ChangeView('attachements')">Manage
+              attachements</button></td>
 
-        <td><button type="button" class="btn btn-primary" (click)="UpdateWeapon(weapon.id, name.value,recoil.value)">Update</button></td>
-        <td><button type="button" class="btn btn-primary" (click)="CancelUpdate()">Cancel</button></td>
-      </tr>
+          <td><button type="button" class="btn btn-primary"
+              (click)="UpdateWeapon(weapon.id, name.value,recoil.value)">Update</button></td>
+          <td><button type="button" class="btn btn-primary" (click)="CancelUpdate()">Cancel</button></td>
+        </tr>
       </ng-container>
-  </thead>
+    </thead>
   </table>
 </div>

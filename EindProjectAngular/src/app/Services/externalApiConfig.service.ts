@@ -18,7 +18,7 @@ export class externalApiConfig
           Authorization: 'my-auth-token'
         })
       };
-    GetTarkovItemImage(itemName:string){
+    GetTarkovItemImage(itemName:string) : Promise<RootObject>{
         const headers = { 'Accept': '*/*'};
         return this.http.get<RootObject>(this.CreateUrl(itemName)).toPromise();
     }
