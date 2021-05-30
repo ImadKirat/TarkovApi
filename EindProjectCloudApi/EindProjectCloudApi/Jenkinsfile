@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                echo 'Compile the source code' 
+                build 'TarkovAPi' 
             }
         }
         stage('Security Check') {
