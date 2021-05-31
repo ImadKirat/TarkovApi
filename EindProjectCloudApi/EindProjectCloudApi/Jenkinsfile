@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Restore packages') {
         steps {
-            sh "dotnet restore ${workspace}\\EindProjectCloudApi\\EindProjectCloudApi.sln"
+            sh "dotnet restore ${workspace}/EindProjectCloudApi/EindProjectCloudApi.sln"
              }
         }
         stage('Increase version') {
