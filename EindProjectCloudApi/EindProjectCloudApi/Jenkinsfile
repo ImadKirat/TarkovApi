@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build') {
         steps {
-            sh "msbuild.exe ${workspace}\\EindProjectCloudApi\\EindProjectCloudApi.sln /nologo /nr:false  /p:platform=\"x64\" /p:configuration=\"release\" /p:PackageCertificateKeyFile=<path-to-certificate-file>.pfx /t:clean;restore;rebuild"
+            bat "msbuild.exe ${workspace}\\EindProjectCloudApi\\EindProjectCloudApi.sln /nologo /nr:false  /p:platform=\"x64\" /p:configuration=\"release\" /p:PackageCertificateKeyFile=<path-to-certificate-file>.pfx /t:clean;restore;rebuild"
            }
         }
    }
