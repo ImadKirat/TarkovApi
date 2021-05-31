@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Restore packages') {
         steps {
-            bat "dotnet restore ${workspace}\\EindProjectCloudApi\\EindProjectCloudApi.sln"
+            sh "dotnet restore ${workspace}\\EindProjectCloudApi\\EindProjectCloudApi.sln"
              }
         }
         stage('Increase version') {
@@ -33,7 +33,7 @@ pipeline {
         }
         stage('Build') {
         steps {
-            bat "msbuild.exe ${workspace}\\<path-to-solution>\\<solution-name>.sln /nologo /nr:false  /p:platform=\"x64\" /p:configuration=\"release\" /p:PackageCertificateKeyFile=<path-to-certificate-file>.pfx /t:clean;restore;rebuild"
+            sh "msbuild.exe ${workspace}\\<path-to-solution>\\<solution-name>.sln /nologo /nr:false  /p:platform=\"x64\" /p:configuration=\"release\" /p:PackageCertificateKeyFile=<path-to-certificate-file>.pfx /t:clean;restore;rebuild"
            }
         }
    }
