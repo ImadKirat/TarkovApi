@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build') {
         steps {
-            sh "dotnet build ${workspace}\\EindProjectCloudApi\\EindProjectCloudApi.sln"
+            sh "dotnet build ${workspace}/EindProjectCloudApi/EindProjectCloudApi.sln"
         }
    }
 }
