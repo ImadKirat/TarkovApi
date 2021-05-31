@@ -1,4 +1,3 @@
-
 pipeline {
     agent any 
     stages {
@@ -17,10 +16,11 @@ pipeline {
             sh "dotnet restore ${workspace}/EindProjectCloudApi/EindProjectCloudApi.sln"
              }
         }
-        stage('Build') {
+
+    }
+            stage('Build') {
         steps {
             sh "dotnet build ${workspace}/EindProjectCloudApi/EindProjectCloudApi.sln"
         }
-    }
    }
 }
