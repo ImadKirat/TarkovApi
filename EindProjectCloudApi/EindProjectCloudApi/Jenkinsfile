@@ -19,7 +19,7 @@ pipeline {
         stage('Running UnitTests') {
 			steps {
 				sh "dotnet test ${workspace}/EindProjectCloudApi/testProject/testProject.csproj -c Release --logger 'trx;LogFileName=TestResult.xml'"
-				
+				sh "cp TestResults/TestResult.xml ."
 			step([$class: "MSTestPublisher", testResultsFile: "TestResult.xml", failOnError: true, keepLongStdio: true])
 
 			}
