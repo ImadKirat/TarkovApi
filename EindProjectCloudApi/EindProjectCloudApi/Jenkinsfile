@@ -16,10 +16,10 @@ pipeline {
             sh "dotnet restore ${workspace}/EindProjectCloudApi/EindProjectCloudApi.sln"
              }
         }
-        stage('Tests') {
+        stage('Running UnitTests') {
 			steps {
 				sh "dotnet test ${workspace}/EindProjectCloudApi/testProject/testProject.csproj -c Release --logger 'trx;LogFileName=TestResult.xml'"
-				sh "cp -R TestResult.xml ."
+				sh "cat TestResult.xml ."
 			step([$class: "MSTestPublisher", testResultsFile: "TestResult.xml", failOnError: true, keepLongStdio: true])
 
 			}
