@@ -4,7 +4,7 @@
   become_user: root
   tasks:
 # Update & upgrade container
-  - name: Apt-get update & upgrade
+  - name: apt-get update & apt-get upgrade
     apt:
       upgrade: yes
       update_cache: yes
@@ -35,11 +35,6 @@
       repo: https://github.com/NotEvenAiming/TarkovApi.git
       dest: /project
       force: true
-# Kopieren van apikeys naar juiste locatie
-  - name: Copy environments to /project/TarkovApi/EindProjectAngular/src/
-    copy:
-      src: /root/workspace
-      dest: /project/TarkovApi/EindProjectAngular/src/
 # Packages downloaden en installeren voor het runnen van dotnet omgeving
   - name: Get Microsoft repo key
     command:
