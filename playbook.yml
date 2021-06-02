@@ -38,7 +38,7 @@
 # Kopieren van apikeys naar juiste locatie
   - name: Copy environments to /project/TarkovApi/EindProjectAngular/src/
     copy:
-      src: /home/lector/environments
+      src: /root/workspace
       dest: /project/TarkovApi/EindProjectAngular/src/
 # Packages downloaden en installeren voor het runnen van dotnet omgeving
   - name: Get Microsoft repo key
