@@ -1,0 +1,173 @@
+- hosts: all
+  remote_user: root
+  become_method: sudo
+  become_user: root
+  tasks:
+# Update & upgrade container
+  - name: Apt-get update & upgrade
+    apt:
+      upgrade: yes
+      update_cache: yes
+    become: true
+# Git installeren en downloaden van repo naar projectmap
+  - name: Install git
+    apt:
+      name: git
+      state: present
+
+  - name: Check if /project exists
+    stat:
+      path: /project
+    register: stat_project
+
+  - name: Delete if /project exists
+    command:
+      cmd: rm -r /project
+    become: true
+    when: stat_project.stat.exists
+
+  - name: Mkdir project
+    command:
+      cmd: mkdir /project
+
+  - name: Download from repo
+    git:
+      repo: https://github.com/NotEvenAiming/TarkovApi.git
+      dest: /project
+      force: true
+# Kopieren van apikeys naar juiste locatie
+  - name: Copy environments to /project/TarkovApi/EindProjectAngular/src/
+    copy:
+      src: /home/lector/environments
+      dest: /project/TarkovApi/EindProjectAngular/src/
+# Packages downloaden en installeren voor het runnen van dotnet omgeving
+  - name: Get Microsoft repo key
+    command:
+      cmd: wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+
+  - name: Dpkg Microsoft package
+    command:
+      cmd: dpkg -i packages-microsoft-prod.deb
+  
+  - name: Add add-apt-repository
+    apt:
+      name: software-properties-common
+      state: present
+    become: true
+
+  - name: Add universe repo
+    command:
+      cmd: add-apt-repository universe
+
+  - name: Install apt-transport-https
+    apt:
+      name: apt-transport-https
+      state: present
+    become: true
+
+  - name: Update packages
+    command: 
+      cmd: apt-get update
+
+  - name: Install .Net Core SDK
+    apt:
+      name: dotnet-sdk-3.1
+      state: present
+    become: true
+# Installeren van benodigde omgevingen
+  - name: Install ASP.NET runtime
+    apt:
+      name: aspnetcore-runtime-3.1
+      state: present
+    become: true
+
+  - name: Install .NET Core runtime
+    apt:
+      name: dotnet-runtime-3.1
+      state: present
+    become: true
+
+  - name: Install apache2
+    apt:
+      name: apache2
+      state: latest
+    become: true
+# Downloaden van NodeJS 12 d.m.v. een script
+  - name: Download NodeJS
+    get_url:
+      url: "https://deb.nodesource.com/setup_12.x"
+      dest: "/project/nodejs.sh"
+
+  - name: Permissions downloadscript
+    file:
+      path: "/project/nodejs.sh"
+      mode: "u+x"
+
+  - name: Execute script
+    shell: "/project/nodejs.sh"
+
+  - name: Remove script
+    file:
+      path: "/project/nodejs.sh"
+      state: absent
+
+  - name: Install nodejs
+    apt:
+      name: nodejs
+      state: present
+      update_cache: yes
+    become: true
+
+  - name: Install Angular cli
+    command:
+      cmd: npm install -g @angular/cli
+
+  - name: Install dependencies
+    npm:
+      path: /project/EindProjectAngular/
+
+# Cloud API project 
+  - name: Build frontend
+    command:
+      chdir: /project/EindProjectAngular/
+      cmd: npm run-script build
+
+  - name: Delete standard website
+    file:
+      path: /var/www/html
+      state: absent
+
+  - name: Move dist to /var/www/html
+    command:
+      cmd: mv /project/EindProjectAngular/dist /var/www/html
+
+  - name: Restart apache2
+    command:
+      cmd: service apache2 restart
+    become: true
+
+# Dotnet backend
+
+  - name: Dotnet restore backend
+    command:
+      cmd: dotnet restore /project/EindProjectCloudApi/EindProjectCloudApi/EindProjectCloudApi.csproj
+    become: true
+
+  - name: Dotnet build backend
+    command:
+      cmd: dotnet build /project/EindProjectCloudApi/EindProjectCloudApi/EindProjectCloudApi.csproj
+    become: true
+
+  - name: installeren Screen
+    apt:
+      name: screen
+      state: latest
+
+  - name: Permissions Asp.net script
+    file:
+      path: /project/EindProjectCloudApi/EindProjectCloudApi/StartASP.sh
+      mode: u+x
+
+  - name: Run Asp.net script
+    shell: /project/EindProjectCloudApi/EindProjectCloudApi/StartASP.sh
+
