@@ -38,7 +38,7 @@
 # Packages downloaden en installeren voor het runnen van dotnet omgeving
   - name: Get Microsoft repo key
     command:
-      cmd: wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+      cmd: wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 
   - name: Dpkg Microsoft package
     command:
