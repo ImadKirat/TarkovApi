@@ -66,19 +66,19 @@
 
   - name: Install .Net Core SDK
     apt:
-      name: dotnet-sdk-3.1
+      name: dotnet-sdk-5.0
       state: present
     become: true
 # Installeren van benodigde omgevingen
   - name: Install ASP.NET runtime
     apt:
-      name: aspnetcore-runtime-3.1
+      name: aspnetcore-runtime-5.0
       state: present
     become: true
 
   - name: Install .NET Core runtime
     apt:
-      name: dotnet-runtime-3.1
+      name: dotnet-runtime-5.0
       state: present
     become: true
 
