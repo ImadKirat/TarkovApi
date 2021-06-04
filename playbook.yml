@@ -3,13 +3,11 @@
   become_method: sudo
   become_user: root
   tasks:
-# Update & upgrade container
   - name: apt-get update & apt-get upgrade
     apt:
       upgrade: yes
       update_cache: yes
     become: true
-# Git installeren en downloaden van repo naar projectmap
   - name: Install git
     apt:
       name: git
